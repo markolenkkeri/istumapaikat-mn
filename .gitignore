@@ -1,0 +1,6 @@
+.gradle/
+.idea/
+build/
+actualseatconsumers.csv
+rooms.csv
+*.iml
