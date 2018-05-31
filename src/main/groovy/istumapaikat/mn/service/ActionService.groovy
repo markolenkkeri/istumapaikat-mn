@@ -1,6 +1,9 @@
 package istumapaikat.mn.service
 
 import grails.gorm.transactions.Transactional
+import groovy.util.logging.Slf4j
+import io.micronaut.context.annotation.ConfigurationProperties
+import io.micronaut.context.annotation.Value
 import istumapaikat.mn.domain.Room
 import istumapaikat.mn.domain.SeatConsumer
 
@@ -10,7 +13,7 @@ import javax.inject.Singleton
 import static com.xlson.groovycsv.CsvParser.parseCsv
 
 @Singleton
-
+@Slf4j
 class ActionService {
     SeatConsumerService seatConsumerService
     RoomService roomService
@@ -22,12 +25,18 @@ class ActionService {
         this.seatConsumerService=seatConsumerService
     }
 
+    @Value('${istumapaikat.rooms:rooms.csv}')
+    String roomsFileName
+
+    @Value('${istumapaikat.seatconsumers:seatconsumers.csv}')
+    String seatConsumersFileName
+
     @Transactional
     List<Room> getRandomizedSeats(List<Room> rooms, List<SeatConsumer> consumers) {
 
         def categoryCount = [:].withDefault { 0 }
 
-        println "Randomizing people and teams to rooms. There are " + rooms*.seats?.sum() + " seats and " + consumers*.count?.sum() + " consumers in the files."
+        log.info "Randomizing people and teams to rooms. There are " + rooms*.seats?.sum() + " seats and " + consumers*.count?.sum() + " consumers in the files."
 
         //Sort by count, assign biggest teams first because we're not doing this the fancy way
         consumers = consumers?.sort { a, b -> a.count < b.count ? 1 : -1 }
@@ -80,10 +89,9 @@ class ActionService {
     @Transactional
     void initialize()
     {
-        //TODO: Make filenames env/conf based
-        File roomsFile = new File("rooms.csv")
-        File seatConsumersFile = new File("seatconsumers.csv")
-        println "Reading CSV files"
+        File roomsFile = new File(roomsFileName)
+        File seatConsumersFile = new File(seatConsumersFileName)
+        log.info "Reading CSV files"
         def data = parseCsv(roomsFile?.newReader("UTF-8"))
         data?.each { line ->
             Room room = [roomId: (line.id as Integer), seats: (line.seats as Integer), description: line.description, category: (line.category as Integer)]
@@ -95,9 +103,9 @@ class ActionService {
             SeatConsumer seatConsumer = [count: (line.count as Integer), description: line.description, category: (line.category as Integer), strict: (line.strict as Integer)==1, name: line.name]
             seatConsumerService.save(seatConsumer)
         }
-        println "Read complete"
-        println seatConsumerService.count() + " seat consumers added"
-        println roomService.count() + " rooms added"
+        log.info "Read complete"
+        log.info seatConsumerService.count() + " seat consumers added"
+        log.info roomService.count() + " rooms added"
     }
 
 }

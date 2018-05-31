@@ -20,3 +20,7 @@ dataSource:
   driverClassName: org.h2.Driver
   username: sa
   password: ''
+---
+istumapaikat:
+  rooms: 'rooms.csv'
+  seatconsumers: 'seatconsumers.csv'
