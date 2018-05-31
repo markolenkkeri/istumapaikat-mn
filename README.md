@@ -5,8 +5,6 @@ Micronaut-based implementation for seat randomizing hack. Same as istumapaikat-w
 Clone this repository. Run `./gradlew bootRun` or `gradlew.bat bootRun` or install Gradle and Grails with http://sdkman.io .
 
 ## Usage
-Call http://localhost:8080/action/initialize to read the CSV files. Better get those from somewhere as well...
-
 Call http://localhost:8080/action/randomize for a good t... for a distribution of seatconsumers to rooms
 
 Call http://localhost:8080/action/draftpicks for a randomized seatconsumer list

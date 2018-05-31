@@ -82,7 +82,7 @@ class ActionService {
     {
         //TODO: Make filenames env/conf based
         File roomsFile = new File("rooms.csv")
-        File seatConsumersFile = new File("actualseatconsumers.csv")
+        File seatConsumersFile = new File("seatconsumers.csv")
         println "Reading CSV files"
         def data = parseCsv(roomsFile?.newReader("UTF-8"))
         data?.each { line ->
