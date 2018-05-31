@@ -27,19 +27,19 @@ class ActionService {
 
         def categoryCount = [:].withDefault { 0 }
 
-        println "Randomizing people and teams to rooms. There are " + rooms*.seats.sum() + " seats and " + consumers*.count.sum() + " consumers in the files."
+        println "Randomizing people and teams to rooms. There are " + rooms*.seats?.sum() + " seats and " + consumers*.count?.sum() + " consumers in the files."
 
         //Sort by count, assign biggest teams first because we're not doing this the fancy way
-        consumers = consumers.sort { a, b -> a.count < b.count ? 1 : -1 }
-        def consumerCounts = consumers.collect { it.count }.unique()
+        consumers = consumers?.sort { a, b -> a.count < b.count ? 1 : -1 }
+        def consumerCounts = consumers?.collect { it.count }?.unique()
         Random rand = new Random()
 
-        rooms.each { room ->
+        rooms?.each { room ->
             categoryCount.put(room.category, 0)
             room.currentSeats = room.seats
         }
 
-        consumers.each {seatConsumer ->
+        consumers?.each {seatConsumer ->
             categoryCount.put(seatConsumer.category, categoryCount.get(seatConsumer.category)+seatConsumer.count)
         }
 
