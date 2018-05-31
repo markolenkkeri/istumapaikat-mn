@@ -10,5 +10,5 @@ Call http://localhost:8080/action/randomize for a good t... for a distribution o
 Call http://localhost:8080/action/draftpicks for a randomized seatconsumer list
 
 ## Contents
-Micronaut application (1.0.0.M1) with H2 in memory database,GORM data services and CSV readers. See `controllers`- and `services`-packages for core functionalities.
+Micronaut application (1.0.0.M1) with H2 in memory database,GORM data services and CSV readers. See `controller`- and `service`-packages for core functionalities.
 
