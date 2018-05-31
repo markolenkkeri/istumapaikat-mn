@@ -48,8 +48,8 @@ class ActionController {
 
     @Get("/initialize")
     Map<String, String> initialize() {
-        roomService.findAll()?.each {roomService.delete(it.id)}
-        seatConsumerService.findAll()?.each {seatConsumerService.delete(it.id)}
+        roomService.deleteAll()
+        seatConsumerService.deleteAll()
         actionService.initialize()
         Map<String, String> returnMap = [status:"Initialize complete"]
         return returnMap

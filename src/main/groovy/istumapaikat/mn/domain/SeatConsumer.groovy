@@ -1,9 +1,10 @@
 package istumapaikat.mn.domain
 
 import grails.gorm.annotation.Entity
+import org.grails.datastore.gorm.GormEntity
 
 @Entity
-class SeatConsumer {
+class SeatConsumer implements GormEntity<SeatConsumer> {
 
     int count
     String description

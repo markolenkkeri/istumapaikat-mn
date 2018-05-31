@@ -2,9 +2,10 @@ package istumapaikat.mn.domain
 
 import grails.gorm.annotation.Entity
 import groovy.transform.CompileStatic
+import org.grails.datastore.gorm.GormEntity
 
 @Entity
-class Room {
+class Room implements GormEntity<Room> {
     Integer roomId
     Integer seats
     Integer currentSeats

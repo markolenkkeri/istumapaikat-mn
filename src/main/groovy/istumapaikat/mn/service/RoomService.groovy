@@ -1,13 +1,18 @@
 package istumapaikat.mn.service
 
 import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 import istumapaikat.mn.domain.Room
 
 @Service(Room)
-interface RoomService {
+abstract class RoomService {
 
-    List<Room> findAll()
-    Number count()
-    Room save(Room room)
-    void delete(Long id)
+    abstract List<Room> findAll()
+    abstract Number count()
+    abstract Room save(Room room)
+    abstract void delete(Long id)
+    @Transactional
+    void deleteAll() {
+        Room.deleteAll(Room.list())
+    }
 }
