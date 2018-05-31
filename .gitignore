@@ -2,6 +2,5 @@
 .idea/
 build/
 actualseatconsumers.csv
-rooms.csv
 *.iml
 out/
